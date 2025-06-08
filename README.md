@@ -1,116 +1,155 @@
-# Skip Size Selection - We Want Waste
+# Skip Size Selection Page Redesign
 
-A modern, responsive React application for selecting skip sizes, built with performance and user experience in mind.
+A modern, responsive redesign of the skip size selection page for We Want Waste, built with React and TypeScript.
 
-## Features
+## 🎯 Project Overview
 
-- 🎨 Modern, clean UI with Tailwind CSS
-- 📱 Fully responsive design for mobile and desktop
-- ⚡ Optimized performance with React 18 and Vite
-- 🎭 Smooth animations with Framer Motion
-- 🔄 State management with Zustand
-- 🎯 TypeScript for type safety
-- 🧪 Clean architecture following SOLID principles
+This project is a redesign of the skip size selection page from [We Want Waste](https://wewantwaste.co.uk/). The goal was to create a modern, user-friendly interface while maintaining all the original functionality.
 
-## Tech Stack
+### Key Features
+- Modern, clean UI design
+- Fully responsive (mobile-first approach)
+- Real-time skip data fetching
+- Smooth animations and transitions
+- Type-safe with TypeScript
+- Efficient state management with Zustand
+- Cached API responses for better performance
 
-- React 18
-- TypeScript
-- Tailwind CSS
-- Zustand (State Management)
-- Framer Motion (Animations)
-- Vite (Build Tool)
-- Axios (API Client)
+## 🛠️ Technical Stack
 
-## Project Structure
+- **Framework**: React 18 with TypeScript
+- **State Management**: Zustand
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **API Client**: Axios
+- **Build Tool**: Vite
+- **Package Manager**: pnpm
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- pnpm (v8 or higher)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/saeedzanjani
+cd skip-size
+```
+
+2. Install dependencies:
+```bash
+pnpm install
+```
+
+3. Start the development server:
+```bash
+pnpm dev
+```
+
+The application will be available at `http://localhost:5173`
+
+## 🏗️ Project Structure
 
 ```
 src/
-├── components/         # React components
-│   ├── SkipCard.tsx   # Individual skip card component
-│   └── SkipSelection.tsx # Main skip selection component
-├── store/             # State management
-│   └── skipStore.ts   # Zustand store for skip data
-├── types/             # TypeScript type definitions
-│   └── skip.ts        # Skip-related types
-├── App.tsx            # Main application component
-└── main.tsx           # Application entry point
+├── api/              # API client and services
+├── components/       # React components
+│   ├── common/      # Shared components
+│   └── ...
+├── config/          # Configuration files
+├── layouts/         # Layout components
+├── store/           # State management
+├── types/           # TypeScript type definitions
+└── utils/           # Utility functions
 ```
 
-## Architecture Decisions
+## 🎨 Design Approach
 
-1. **State Management**: Zustand was chosen for its simplicity and performance. It provides a lightweight solution that's perfect for this use case.
-
-2. **Component Structure**: Components are built following the Single Responsibility Principle, with clear separation of concerns:
-   - `SkipCard`: Handles individual skip display and selection
-   - `SkipSelection`: Manages the overall skip selection process
-
-3. **Type Safety**: TypeScript is used throughout the application to ensure type safety and better developer experience.
-
-4. **Styling**: Tailwind CSS is used for styling, providing:
-   - Utility-first approach for rapid development
-   - Consistent design system
-   - Responsive design out of the box
-   - Custom components for reusability
-
-5. **Performance Optimizations**:
-   - React 18 features for better performance
-   - Code splitting with Vite
-   - Optimized animations with Framer Motion
-   - Efficient state updates with Zustand
-
-## Getting Started
-
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-4. Build for production:
-   ```bash
-   npm run build
-   ```
-
-## Development
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
-
-## Design Decisions
-
-1. **UI/UX Improvements**:
+### UI/UX Improvements
+1. **Modern Card Design**
+   - Clean, shadow-based cards for skip options
    - Clear visual hierarchy
-   - Responsive grid layout
-   - Smooth animations for better user feedback
-   - Clear pricing and skip information
+   - Smooth hover and selection states
+
+2. **Responsive Design**
    - Mobile-first approach
+   - Fluid grid layouts
+   - Adaptive typography
+   - Touch-friendly interactions
 
-2. **Accessibility**:
-   - Semantic HTML
-   - Proper ARIA attributes
-   - Keyboard navigation support
-   - High contrast text
-   - Responsive text sizes
+3. **User Experience**
+   - Smooth animations for state changes
+   - Clear loading states
+   - Error handling with user-friendly messages
+   - Intuitive skip selection process
 
-3. **Performance**:
-   - Optimized bundle size
-   - Lazy loading where appropriate
-   - Efficient state management
-   - Smooth animations with hardware acceleration
+### Code Architecture
+1. **Component Structure**
+   - Atomic design principles
+   - Reusable components
+   - Clear separation of concerns
 
-## Future Improvements
+2. **State Management**
+   - Centralized store with Zustand
+   - Type-safe actions and state
+   - Efficient caching strategy
 
-1. Add unit and integration tests
-2. Implement error boundaries
-3. Add loading skeletons
-4. Implement skip filtering and sorting
-5. Add skip comparison feature
-6. Implement skip booking flow
-7. Add user preferences storage
-8. Implement skip availability checking
+3. **Performance**
+   - Debounced API calls
+   - Memoized components
+   - Optimized re-renders
+
+## 🔄 API Integration
+
+The application fetches skip data from:
+```
+https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft
+```
+
+Features:
+- Cached responses for better performance
+- Error handling and retry logic
+- Type-safe API integration
+- Debounced requests to prevent rate limiting
+
+## 📱 Responsive Design
+
+The application is fully responsive with breakpoints:
+- Mobile: < 640px
+- Tablet: 640px - 1024px
+- Desktop: > 1024px
+
+## 🧪 Testing
+
+To run tests:
+```bash
+pnpm test
+```
+
+## 📝 Future Improvements
+
+1. **Features**
+   - Add skip comparison functionality
+   - Implement skip size recommendations
+   - Add more detailed skip information
+
+2. **Technical**
+   - Add end-to-end tests
+   - Implement PWA capabilities
+   - Add performance monitoring
+
+## 📄 License
+
+This project is created as part of a coding challenge for We Want Waste.
+
+## 👥 Author
+
+Saeed - https://github.com/saeedzanjani
+
+## 🙏 Acknowledgments
+
+- We Want Waste for providing the API and design inspiration
+- The React and TypeScript communities for their excellent documentation

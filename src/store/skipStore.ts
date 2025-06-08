@@ -1,34 +1,29 @@
-import { create } from 'zustand';
-import axios from 'axios';
-import type { Skip, SkipStore } from '../types/skip';
+import type { Skip } from '../types/skip';
+import { skipService } from '../api/services';
+import { createFetchStore, type FetchStore } from './createFetchStore';
 
-const API_BASE_URL = 'https://app.wewantwaste.co.uk/api';
-
-export const useSkipStore = create<SkipStore>((set) => ({
-  skips: [],
-  selectedSkip: null,
-  loading: false,
-  error: null,
-
-  fetchSkips: async (postcode: string, area: string) => {
-    set({ loading: true, error: null });
-    try {
-      const response = await axios.get<Skip[]>(
-        `${API_BASE_URL}/skips/by-location`,
-        {
-          params: { postcode, area },
-        }
-      );
-      set({ skips: response.data, loading: false });
-    } catch (error) {
-      set({
-        error: error instanceof Error ? error.message : 'Failed to fetch skips',
-        loading: false,
-      });
-    }
+// Create the skip store using the generic fetch store creator
+export const useSkipStore = createFetchStore<Skip, [string, string]>(
+  skipService.fetchSkipsByLocation.bind(skipService),
+  {
+    data: [],
+    selectedItem: null,
+    loading: false,
+    error: null,
   },
+  {
+    debounceMs: 300,
+    onFetchStart: () => console.debug('🔄 Starting skip fetch'),
+    onFetchSuccess: (data) => console.debug('✅ Skip fetch successful:', data),
+    onFetchError: (error) => console.error('❌ Skip fetch error:', error.message),
+  }
+);
 
-  selectSkip: (skip: Skip) => set({ selectedSkip: skip }),
+// Type the store for better type safety
+export type SkipStore = FetchStore<Skip, [string, string]>;
 
-  clearSelection: () => set({ selectedSkip: null }),
-}));
+// Selectors with skip-specific names
+export const useSkipLoading = () => useSkipStore(state => state.loading);
+export const useSkipError = () => useSkipStore(state => state.error);
+export const useSkips = () => useSkipStore(state => state.data);
+export const useSelectedSkip = () => useSkipStore(state => state.selectedItem);
